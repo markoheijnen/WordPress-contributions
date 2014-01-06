@@ -26,11 +26,6 @@ License: GPLv2+
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-require_once( 'inc/class.wordpress-api.php' );
-
-require_once( 'inc/widget.wp-codex-contributions.php' );
-require_once( 'inc/widget.wp-core-contributions.php' );
-
 class WP_Contributions {
 	private static $path;
 
@@ -38,11 +33,23 @@ class WP_Contributions {
 		self::$path = dirname( __FILE__ ) . '/';
 
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+
+		$this->load_wordpress();
 	}
+
 
 	public function load_textdomain() {
 		load_plugin_textdomain( 'wp-contributions', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+	}
+
+
+	public function load_wordpress() {
+		require_once( 'inc/class.wordpress-api.php' );
+
+		require_once( 'inc/widget.wp-codex-contributions.php' );
+		require_once( 'inc/widget.wp-core-contributions.php' );
+
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
 
 	public static function register_widgets() {
