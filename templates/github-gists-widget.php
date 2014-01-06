@@ -1,6 +1,6 @@
 <?php
 /**
- * Core Widget Template.
+ * GitHub gists Widget Template.
  *
  * @since     1.0
  */
