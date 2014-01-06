@@ -80,12 +80,14 @@ class WP_Contributions {
 		require_once( 'inc/class.github-api.php' );
 
 		require_once( 'inc/widget.github-gists.php' );
+		require_once( 'inc/widget.github-repos.php' );
 
 		add_action( 'widgets_init', array( $this, 'register_github_widgets' ) );
 	}
 
 	public static function register_github_widgets() {
 		register_widget( 'WP_Contributions_Gists_Widget' );
+		register_widget( 'WP_Contributions_Github_Repos_Widget' );
 	}
 
 }
