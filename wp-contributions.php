@@ -83,6 +83,8 @@ class WP_Contributions {
 		require_once( 'inc/widget.github-repos.php' );
 
 		add_action( 'widgets_init', array( $this, 'register_github_widgets' ) );
+
+		WP_Contributions_Github_Api::load();
 	}
 
 	public static function register_github_widgets() {
