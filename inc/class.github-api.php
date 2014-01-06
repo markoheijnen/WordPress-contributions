@@ -76,8 +76,8 @@ class WP_Contributions_Github_Api {
 
 		if ( preg_match( "/^[a-zA-Z0-9]+$/", $id ) ) {
 			$noscript = sprintf(
-				__( '<p>View the code on <a href="https://gist.github.com/%s">Gist</a>.</p>', 'oembed-gist' ),
-				 $id
+				__( '<p>View the code on <a href="https://gist.github.com/%s">Gist</a>.</p>', 'wp-contributions' ),
+				$id
 			);
 
 			if ( isset( $matches[4] ) ) {
