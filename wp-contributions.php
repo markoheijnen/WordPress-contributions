@@ -44,20 +44,6 @@ class WP_Contributions {
 	}
 
 
-	public function load_wordpress() {
-		require_once( 'inc/class.wordpress-api.php' );
-
-		require_once( 'inc/widget.wp-codex-contributions.php' );
-		require_once( 'inc/widget.wp-core-contributions.php' );
-
-		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
-	}
-
-	public static function register_widgets() {
-		register_widget( 'WP_Contributions_Core_Widget' );
-		register_widget( 'WP_Contributions_Codex_Widget' );
-	}
-
 	public static function load_template( $name ) {
 		// Include template from the theme
 		$template_name = 'wp-contributions/' . $name;
@@ -70,6 +56,21 @@ class WP_Contributions {
 
 		// Load the template file
 		include( $path );
+	}
+
+
+	public function load_wordpress() {
+		require_once( 'inc/class.wordpress-api.php' );
+
+		require_once( 'inc/widget.wp-codex-contributions.php' );
+		require_once( 'inc/widget.wp-core-contributions.php' );
+
+		add_action( 'widgets_init', array( $this, 'register_wordpress_widgets' ) );
+	}
+
+	public static function register_wordpress_widgets() {
+		register_widget( 'WP_Contributions_Core_Widget' );
+		register_widget( 'WP_Contributions_Codex_Widget' );
 	}
 
 
