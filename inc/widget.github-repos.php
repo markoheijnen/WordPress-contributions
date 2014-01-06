@@ -75,7 +75,7 @@ class WP_Contributions_Github_Repos_Widget extends Connections_Widget {
 
 		// Widget content
 		$theme_args = array(
-			'repos' => array_slice( Connection_Github::get_repos_from_user( $instance[ 'author' ] ), 0, $count )
+			'items' => array_slice( WP_Contributions_Github_Api::get_repos( $username ), 0, $count )
 		);
 
 		// Include template
