@@ -39,7 +39,7 @@ class WP_Contributions_WordPress_Api {
 					array_push( $formatted, $new_match );
 				}
 
-				set_transient( 'wp-contributions-core-' . $username, $formatted, apply_filters( 'wpcc_core_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-core-' . $username, $formatted, apply_filters( 'wp_contributions_core_transient', HOUR_IN_SECONDS * 12 ) );
 			}
 		}
 
@@ -67,7 +67,7 @@ class WP_Contributions_WordPress_Api {
 
 				$count = intval( $matches[1] );
 
-				set_transient( 'wp-contributions-core-count-' . $username, $count, apply_filters( 'wpcc_core_count_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-core-count-' . $username, $count, apply_filters( 'wp_contributions_core_count_transient', HOUR_IN_SECONDS * 12 ) );
 			}
 		}
 
@@ -109,7 +109,7 @@ class WP_Contributions_WordPress_Api {
 					array_push( $formatted, $new_item );
 				}
 
-				set_transient( 'wp-contributions-codex-' . $username, $formatted, apply_filters( 'wpcc_codex_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-codex-' . $username, $formatted, apply_filters( 'wp_contributions_codex_transient', HOUR_IN_SECONDS * 12 ) );
 			}
 		}
 
@@ -137,7 +137,7 @@ class WP_Contributions_WordPress_Api {
 				$raw   = json_decode( $results );
 				$count = (int) $raw->query->users[0]->editcount;
 
-				set_transient( 'wp-contributions-codex-count-' . $username, $count, apply_filters( 'wpcc_codex_count_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-codex-count-' . $username, $count, apply_filters( 'wp_contributions_codex_count_transient', HOUR_IN_SECONDS * 12 ) );
 			}
 		}
 
