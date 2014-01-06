@@ -74,11 +74,13 @@ class WP_Contributions_Codex_Widget extends WP_Widget {
 		}
 
 		// Widget content
-		$items = array_slice( WP_Contributions_WordPress_Api::get_changeset_items( $user ), 0, $count );
-		$total = WP_Contributions_WordPress_Api::get_changeset_count( $user );
+		$theme_args = array(
+			'items' => array_slice( WP_Contributions_WordPress_Api::get_changeset_items( $user ), 0, $count ),
+			'total' => WP_Contributions_WordPress_Api::get_changeset_count( $user )
+		);
 
 		// Include template
-		WP_Contributions::load_template( 'core-widget.php' );
+		WP_Contributions::load_template( 'core-widget.php', $theme_args );
 
 		echo $after_widget;
 	}

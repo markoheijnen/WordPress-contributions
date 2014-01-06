@@ -74,12 +74,14 @@ class WP_Contributions_Core_Widget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
-		// Widget contekt
-		$items = array_slice( WP_Contributions_WordPress_Api::get_codex_items( $user, $count ), 0, $count );
-		$total = WP_Contributions_WordPress_Api::get_codex_count( $user );
+		// Widget content
+		$theme_args = array(
+			'items' => array_slice( WP_Contributions_WordPress_Api::get_codex_items( $user, $count ), 0, $count ),
+			'total' => WP_Contributions_WordPress_Api::get_codex_count( $user )
+		);
 
 		// Include template
-		WP_Contributions::load_template( 'codex-widget.php' );
+		WP_Contributions::load_template( 'codex-widget.php', $theme_args );
 
 		echo $after_widget;
 	}

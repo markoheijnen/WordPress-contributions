@@ -44,12 +44,14 @@ class WP_Contributions {
 	}
 
 
-	public static function load_template( $name ) {
+	public static function load_template( $name, $args = array() ) {
+		extract( $args );
+
 		// Include template from the theme
 		$template_name = 'wp-contributions/' . $name;
 		$path          = locate_template( $template_name );
 
-		// If theme doesn't have the template then include our own own
+		// If theme doesn't have the template then include our own
 		if ( empty( $path ) ) {
 			$path = self::$path . 'templates/' . $name;
 		}
