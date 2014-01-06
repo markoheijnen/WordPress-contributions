@@ -18,23 +18,25 @@ class WP_Contributions_Github_Api {
 		}
 
 		if ( false === ( $gists = get_transient( 'wp-contributions-gists-' . $name ) ) ) {
-			$url     = self::$api_url . 'users/' . $name . '/gists';
-			$results = wp_remote_get( $url );
+			$url      = self::$api_url . 'users/' . $name . '/gists';
+			$response = wp_remote_get( $url );
+			$gists    = array();
 
-			$gists   = array();
-			$data    = json_decode( wp_remote_retrieve_body( $results ) );
+			if( 200 == wp_remote_retrieve_response_code( $response ) ) {
+				$data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if( $data ) {
-				foreach( $data as $gist ) {
-					$gists[] = (object) array(
-						'created_at'  => $gist->created_at,
-						'description' => $gist->description,
-						'html_url'    => $gist->html_url
-					);
+				if( $data ) {
+					foreach( $data as $gist ) {
+						$gists[] = (object) array(
+							'created_at'  => $gist->created_at,
+							'description' => $gist->description,
+							'html_url'    => $gist->html_url
+						);
+					}
 				}
-			}
 
-			set_transient( 'wp-contributions-gists-' . $name, $gists, apply_filters( 'wp_contributions_gists_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-gists-' . $name, $gists, apply_filters( 'wp_contributions_gists_transient', HOUR_IN_SECONDS * 12 ) );
+			}
 		}
 
 		return $gists;
@@ -46,24 +48,26 @@ class WP_Contributions_Github_Api {
 		}
 
 		if ( false === ( $repos = get_transient( 'wp-contributions-grepos-' . $name ) ) ) {
-			$url     = self::$api_url . 'users/' . $name . '/repos?sort=updated';
-			$results = wp_remote_get( $url );
+			$url      = self::$api_url . 'users/' . $name . '/repos?sort=updated';
+			$response = wp_remote_get( $url );
+			$repos    = array();
 
-			$repos   = array();
-			$data    = json_decode( wp_remote_retrieve_body( $results ) );
+			if( 200 == wp_remote_retrieve_response_code( $response ) ) {
+				$data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if( $data ) {
-				foreach( $data as $repo ) {
-					$repos[] = (object) array(
-						'created_at'  => $repo->created_at,
-						'name'        => $repo->name,
-						'description' => $repo->description,
-						'html_url'    => $repo->html_url
-					);
+				if( $data ) {
+					foreach( $data as $repo ) {
+						$repos[] = (object) array(
+							'created_at'  => $repo->created_at,
+							'name'        => $repo->name,
+							'description' => $repo->description,
+							'html_url'    => $repo->html_url
+						);
+					}
 				}
-			}
 
-			set_transient( 'wp-contributions-grepos-' . $name, $repos, apply_filters( 'wp_contributions_grepos_transient', HOUR_IN_SECONDS * 12 ) );
+				set_transient( 'wp-contributions-grepos-' . $name, $repos, apply_filters( 'wp_contributions_grepos_transient', HOUR_IN_SECONDS * 12 ) );
+			}
 		}
 
 		return $repos;
@@ -81,10 +85,10 @@ class WP_Contributions_Github_Api {
 			);
 
 			if ( isset( $matches[4] ) ) {
-				return sprintf( $html,  $id, '?file=' . $matches[4], $noscript );
+				return sprintf( $html, $id, '?file=' . $matches[4], $noscript );
 			}
 			else {
-				return sprintf( $html,  $id, '', $noscript );
+				return sprintf( $html, $id, '', $noscript );
 			}
 		}
 	}

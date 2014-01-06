@@ -78,6 +78,14 @@ class WP_Contributions {
 
 	public function load_github() {
 		require_once( 'inc/class.github-api.php' );
+
+		require_once( 'inc/widget.github-gists.php' );
+
+		add_action( 'widgets_init', array( $this, 'register_github_widgets' ) );
+	}
+
+	public static function register_github_widgets() {
+		register_widget( 'WP_Contributions_Gists_Widget' );
 	}
 
 }
