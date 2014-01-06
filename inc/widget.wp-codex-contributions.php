@@ -76,6 +76,7 @@ class WP_Contributions_Core_Widget extends WP_Widget {
 
 		// Widget content
 		$theme_args = array(
+			'user'  => $user,
 			'items' => array_slice( WP_Contributions_WordPress_Api::get_codex_items( $user, $count ), 0, $count ),
 			'total' => WP_Contributions_WordPress_Api::get_codex_count( $user )
 		);

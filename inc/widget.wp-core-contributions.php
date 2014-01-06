@@ -18,14 +18,14 @@ class WP_Contributions_Codex_Widget extends WP_Widget {
 		else {
 			$title = esc_attr__( 'WP Core Contributions', 'wp-contributions' );
 		}
-		
+
 		if ( $instance && isset( $instance[ 'trac-user' ] ) ) {
 			$trac_user = esc_attr( $instance[ 'trac-user' ] );
 		}
 		else {
 			$trac_user = esc_attr__( 'Trac Username', 'wp-contributions' );
 		}
-		
+
 		if ( $instance && isset( $instance[ 'display-count' ] ) ) {
 			$trac_count = absint( $instance[ 'display-count' ] );
 		}
@@ -75,6 +75,7 @@ class WP_Contributions_Codex_Widget extends WP_Widget {
 
 		// Widget content
 		$theme_args = array(
+			'user'  => $user,
 			'items' => array_slice( WP_Contributions_WordPress_Api::get_changeset_items( $user ), 0, $count ),
 			'total' => WP_Contributions_WordPress_Api::get_changeset_count( $user )
 		);
