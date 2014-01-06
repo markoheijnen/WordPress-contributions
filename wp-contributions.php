@@ -35,6 +35,7 @@ class WP_Contributions {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		$this->load_wordpress();
+		$this->load_github();
 	}
 
 
@@ -69,6 +70,11 @@ class WP_Contributions {
 
 		// Load the template file
 		include( $path );
+	}
+
+
+	public function load_github() {
+		require_once( 'inc/class.github-api.php' );
 	}
 
 }
