@@ -16,7 +16,7 @@ class WP_Contributions_Github_Repos_Widget extends Connections_Widget {
 			$title = esc_attr( $instance[ 'title' ] );
 		}
 		else {
-			$title = esc_attr__( 'Gists', 'wp-contributions' );
+			$title = esc_attr__( 'Github Repos', 'wp-contributions' );
 		}
 
 		if ( $instance && isset( $instance[ 'username' ] ) ) {
