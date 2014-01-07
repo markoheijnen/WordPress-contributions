@@ -64,6 +64,7 @@ class WP_Contributions {
 	public function load_wordpress() {
 		require_once( 'inc/class.wordpress-api.php' );
 
+		require_once( 'inc/widget.wp-plugins.php' );
 		require_once( 'inc/widget.wp-codex-contributions.php' );
 		require_once( 'inc/widget.wp-core-contributions.php' );
 
@@ -71,6 +72,7 @@ class WP_Contributions {
 	}
 
 	public static function register_wordpress_widgets() {
+		register_widget( 'WP_Contributions_Plugins_Widget' );
 		register_widget( 'WP_Contributions_Core_Widget' );
 		register_widget( 'WP_Contributions_Codex_Widget' );
 	}

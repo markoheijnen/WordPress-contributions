@@ -2,6 +2,37 @@
 
 class WP_Contributions_WordPress_Api {
 
+	public static function get_plugins( $username, $args = array() ) {
+		if( ! $username ) {
+			return false;
+		}
+
+		if ( false === ( $data = get_transient( 'wp-contributions-plugissns-' . $username ) ) ) {
+			$defaults = array(
+				'author'   => $username,
+				'per_page' => 30,
+				'fields'   => array( 'description' => false, 'compatibility' => false )
+			);
+
+			$payload = array(
+				'action'  => 'query_plugins',
+				'request' => serialize(
+					(object) wp_parse_args( $args, $defaults )
+				)
+			);
+			$response = wp_remote_post( 'https://api.wordpress.org/plugins/info/1.0/', array( 'body' => $payload ) );
+
+			if( 200 == wp_remote_retrieve_response_code( $response ) ) {
+				$data = maybe_unserialize( wp_remote_retrieve_body( $response ) );
+				$data = $data->plugins;
+
+				set_transient( 'wp-contributions-plugins-' . $username, $data, apply_filters( 'wp_contributions_plugins_transient', HOUR_IN_SECONDS * 12 ) );
+			}
+		}
+
+		return $data;
+	}
+
 	public static function get_changeset_items( $username ) {
 		if ( null == $username ) {
 			return array();
